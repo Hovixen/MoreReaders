@@ -1,52 +1,64 @@
+import bk from './assets/bk.jpeg'
+import book from './assets/book.png'
+import chat from './assets/chat.png'
+import event from './assets/event.png'
+import friend from './assets/friend.png'
+import hns from './assets/hns.jpeg'
+import intro from './assets/intro.png'
+import library from './assets/library.png'
+import profile_pic from './assets/profile-pic.png'
+import profile from './assets/profile.jpg'
+// import room from './assets/room.png'
+
 export const Users = [
     {
       id:1,
-      profilePicture: "assets/person/1.jpeg",
+      profilePicture: bk,
       username: "Safak Kocaoglu",
     },
     {
       id:2,
-      profilePicture: "assets/person/2.jpeg",
+      profilePicture: book,
       username: "Janell Shrum",
     },
     {
       id:3,
-      profilePicture: "assets/person/3.jpeg",
+      profilePicture: chat,
       username: "Alex Durden",
     },
     {
       id:4,
-      profilePicture: "assets/person/4.jpeg",
+      profilePicture: event,
       username: "Dora Hawks",
     },
     {
       id:5,
-      profilePicture: "assets/person/5.jpeg",
+      profilePicture: friend,
       username: "Thomas Holden",
     },
     {
       id:6,
-      profilePicture: "assets/person/6.jpeg",
+      profilePicture: hns,
       username: "Shirley Beauchamp",
     },
     {
       id:7,
-      profilePicture: "assets/person/7.jpeg",
+      profilePicture: intro,
       username: "Travis Bennett",
     },
     {
       id:8,
-      profilePicture: "assets/person/8.jpeg",
+      profilePicture: library,
       username: "Kristen Thomas",
     },
     {
       id:9,
-      profilePicture: "assets/person/9.jpeg",
+      profilePicture: profile_pic,
       username: "Gary Duty",
     },
     {
       id:10,
-      profilePicture: "assets/person/10.jpeg",
+      profilePicture: profile,
       username: "Safak Kocaoglu",
     },
   ];
@@ -55,7 +67,7 @@ export const Users = [
     {
       id: 1,
       desc: "Love For All, Hatred For None.",
-      photo: "assets/post/1.jpeg",
+      photo: friend,
       date: "5 mins ago",
       userId: 1,
       like: 32,
@@ -63,7 +75,7 @@ export const Users = [
     },
     {
       id: 2,
-      photo: "assets/post/2.jpeg",
+      photo: hns,
       date: "15 mins ago",
       userId: 2,
       like: 2,
@@ -72,7 +84,7 @@ export const Users = [
     {
       id: 3,
       desc: "Every moment is a fresh beginning.",
-      photo: "assets/post/3.jpeg",
+      photo: intro,
       date: "1 hour ago",
       userId: 3,
       like: 61,
@@ -80,7 +92,7 @@ export const Users = [
     },
     {
       id: 4,
-      photo: "assets/post/4.jpeg",
+      photo: library,
       date: "4 hours ago",
       userId: 4,
       like: 7,
@@ -88,7 +100,7 @@ export const Users = [
     },
     {
       id: 5,
-      photo: "assets/post/5.jpeg",
+      photo: profile_pic,
       date: "5 hours ago",
       userId: 5,
       like: 23,
@@ -96,7 +108,7 @@ export const Users = [
     },
     {
       id: 6,
-      photo: "assets/post/6.jpeg",
+      photo: profile,
       date: "1 day ago",
       userId: 6,
       like: 44,
@@ -105,7 +117,7 @@ export const Users = [
     {
       id: 7,
       desc: "Never regret anything that made you smile.",
-      photo: "assets/post/7.jpeg",
+      photo: chat,
       date: "2 days ago",
       userId: 7,
       like: 52,
@@ -113,7 +125,7 @@ export const Users = [
     },
     {
       id: 8,
-      photo: "assets/post/8.jpeg",
+      photo: event,
       date: "3 days ago",
       userId: 8,
       like: 15,
@@ -122,7 +134,7 @@ export const Users = [
     {
       id: 9,
       desc: "Change the world by being yourself.",
-      photo: "assets/post/9.jpeg",
+      photo: book,
       date: "5 days ago",
       userId: 9,
       like: 11,
@@ -130,7 +142,7 @@ export const Users = [
     },
     {
       id: 10,
-      photo: "assets/post/10.jpeg",
+      photo: bk,
       date: "1 week ago",
       userId: 10,
       like: 104,
