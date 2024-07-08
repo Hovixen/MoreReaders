@@ -12,8 +12,8 @@ export const AuthContextProvider = ({ children }) => {
     //TO DO
     setCurrentUser({
       id: 1,
-      name: "Vienne Steph",
-      profilePic: profile,
+      name: "John Doe",
+      profilePic: { profile },
     });
   };
 
