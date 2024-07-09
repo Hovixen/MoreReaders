@@ -59,7 +59,7 @@ def get_profile(user_id):
     
     fields = [
         '_id', 'first_name', 'last_name', 'username', 'email',
-        'profile_picture', 'followers', 'following', 'bio'
+        'profile_picture', 'followers', 'following', 'bio', 'created_at'
         ]
 
     res = {field: user.get(field) for field in fields}
@@ -82,3 +82,53 @@ def delete_profile(user_id):
     # only returns the updated fields
     mongo.db.users.delete_one({'_id': ObjectId(user_id)})
     return jsonify({'message': 'Profile deleted successfull'}), 200
+
+
+@user.route('/profile/<user_id>/follow', methods=['PUT'], strict_slashes=False)
+@jwt_required()
+def follow_user(user_id):
+    """ updates user followers """
+    current_user_id = get_jwt_identity()
+    follow_user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+
+    if not follow_user:
+        return jsonify({'error': 'No user found'}), 404
+
+    if current_user_id == str(follow_user['_id']):
+        return jsonify({'error': 'You cannot follow yourself'}), 403
+
+    mongo.db.users.find_one_and_update(
+        {'_id': ObjectId(current_user_id)},
+        {'$addToSet': { 'followings': ObjectId(user_id) }}
+    )
+    
+    mongo.db.users.find_one_and_update(
+        {'_id': ObjectId(user_id)},
+        {'$addToSet': { 'followers': ObjectId(current_user_id) }}
+    )
+    return jsonify({'message': 'User followed successfully'})
+
+
+@user.route('/profile/<user_id>/unfollow', methods=['PUT'], strict_slashes=False)
+@jwt_required()
+def unfollow_user(user_id):
+    """ updates user followers """
+    current_user_id = get_jwt_identity()
+    unfollow_user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+
+    if not follow_user:
+        return jsonify({'error': 'No user found'}), 404
+
+    if current_user_id == str(unfollow_user['_id']):
+        return jsonify({'error': 'You cannot unfollow yourself'}), 403
+
+    mongo.db.users.find_one_and_update(
+        {'_id': ObjectId(current_user_id)},
+        {'$pull': { 'followings': ObjectId(user_id) }}
+    )
+    
+    mongo.db.users.find_one_and_update(
+        {'_id': ObjectId(user_id)},
+        {'$pull': { 'followers': ObjectId(current_user_id) }}
+    )
+    return jsonify({'message': 'User unfollowed successfully'})
