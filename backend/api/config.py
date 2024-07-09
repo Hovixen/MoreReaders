@@ -13,5 +13,6 @@ class Config:
     esc_pwd = quote_plus(pwd)
 
     SECRET_KEY = config('SECRET_KEY')
+    JWT_SECRET_KEY = config('JWT_SECRET_KEY')
     MONGO_URI = 'mongodb+srv://{}:{}@{}'.format(esc_user, esc_pwd, mongo_url)
         

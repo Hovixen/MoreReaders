@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_pymongo import PyMongo
+from flask_jwt_extended import JWTManager
 from backend.api.config import Config
 
 
@@ -10,7 +11,10 @@ app.config.from_object(Config)
 
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
 
-from backend.api.auth.routes import auth
 from backend.api import routes
+from backend.api.auth.routes import auth
+from backend.api.users.routes import user
 app.register_blueprint(auth)
+app.register_blueprint(user)

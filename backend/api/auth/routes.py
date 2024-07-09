@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from backend.api import mongo, bcrypt
+from flask_jwt_extended import create_access_token
 from backend.api.models import User
 
 auth = Blueprint('auth', __name__)
@@ -14,12 +15,45 @@ def register():
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
-
+    
+    # hashed the password
     hashed_pwd = bcrypt.generate_password_hash(password).decode('utf-8')
 
     user = User(first_name, last_name, username, email, hashed_pwd)
     user_dict = user.to_dict()
     mongo.db.users.insert_one(user_dict)
     return jsonify(
-        {'message': 'User created', 'user id': str(user_dict['_id'])}
+        {
+            'message': 'User created',
+            'user id': str(user_dict['_id'])
+        }
         ), 201
+
+
+@auth.route('/login', methods=['POST'], strict_slashes=False)
+def login():
+    """ login function without using jwt authorization """
+    data = request.json
+    email = data.get('email')
+    password = data.get('password')
+
+    user = mongo.db.users.find_one({ 'email': email })
+
+    if user:
+        if bcrypt.check_password_hash(user['password'], password):
+            access_token = create_access_token(identity=str(user['_id']))
+
+            return jsonify (
+                {
+                    'message': 'User successfully logged in',
+                    'access_token': access_token,
+                    'user_id': str(user['_id'])
+                }
+            ), 200
+        else:
+            return jsonify(
+                {
+                    'error': 'Invalid email or password. Try again'
+                }
+                ), 401
+    return jsonify({'error': 'User does not exist'}), 404

@@ -13,6 +13,7 @@ class User:
                  profile_picture: Optional[str] = None,
                  followers: Optional[List[int]] = None,
                  followings: Optional[List[int]] = None,
+                 bio: Optional[str] = None,
                  is_admin: bool = False) -> None:
         """ Initializes the user class """
         self.first_name = first_name
@@ -23,6 +24,7 @@ class User:
         self.profile_picture = profile_picture
         self.followers = followers if followers is not None else []
         self.followings = followings if followings is not None else []
+        self.bio = bio
         self.is_admin = is_admin
         self.created_at = datetime.utcnow()
 
@@ -36,6 +38,7 @@ class User:
             'profile_picture': self.profile_picture,
             'followers': self.followers,
             'followings': self.followings,
+            'bio': self.bio,
             'is_admin': self.is_admin,
             'created_at': self.created_at
         }
