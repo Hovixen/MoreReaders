@@ -27,6 +27,7 @@ class User:
         self.bio = bio
         self.is_admin = is_admin
         self.created_at = datetime.utcnow()
+        self.updated_at = datetime.utcnow()
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -40,7 +41,8 @@ class User:
             'followings': self.followings,
             'bio': self.bio,
             'is_admin': self.is_admin,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }
 
 class Post:

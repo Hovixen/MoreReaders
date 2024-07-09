@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from backend.api import mongo, bcrypt
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import (create_access_token, create_refresh_token,
+                                jwt_required)
 from backend.api.models import User
 
 auth = Blueprint('auth', __name__)
@@ -42,12 +43,14 @@ def login():
     if user:
         if bcrypt.check_password_hash(user['password'], password):
             access_token = create_access_token(identity=str(user['_id']))
+            refresh_token = create_refresh_token(identity=str(user['_id']))
 
             return jsonify (
                 {
                     'message': 'User successfully logged in',
+                    'user_id': str(user['_id']),
                     'access_token': access_token,
-                    'user_id': str(user['_id'])
+                    'refresh_token': refresh_token
                 }
             ), 200
         else:
@@ -57,3 +60,12 @@ def login():
                 }
                 ), 401
     return jsonify({'error': 'User does not exist'}), 404
+
+
+@auth.route('/refresh', methods=['POST'], strict_slashes=False)
+@jwt_required(refresh=True)
+def token_refresh():
+    """ function refreshes token when access token expires """
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    return jsonify(access_token=new_access_token)

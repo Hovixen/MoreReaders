@@ -14,5 +14,7 @@ class Config:
 
     SECRET_KEY = config('SECRET_KEY')
     JWT_SECRET_KEY = config('JWT_SECRET_KEY')
+    JWT_ACCESS_TOKEN_EXPIRES = 3600
+    JWT_REFRESH_TOKEN_EXPIRES = 86400
     MONGO_URI = 'mongodb+srv://{}:{}@{}'.format(esc_user, esc_pwd, mongo_url)
         
