@@ -12,6 +12,10 @@ const Login = () => {
 
   return (
     <div className="login">
+      <div className="left">
+      <h1>Welcome to MoreReaders!</h1>
+      <h2>Post, read and download your Favourite books for free!</h2>
+      </div>
       <div className="card">
         <div className="right">
           <h1>Login</h1>

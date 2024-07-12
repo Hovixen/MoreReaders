@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import profile from "../assets/profile.jpg";
 
 export const AuthContext = createContext();
 
@@ -12,8 +11,8 @@ export const AuthContextProvider = ({ children }) => {
     //TO DO
     setCurrentUser({
       id: 1,
-      name: "Vienne Steph",
-      profilePic: profile,
+      name: "John Doe",
+      profilePic: "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
     });
   };
 

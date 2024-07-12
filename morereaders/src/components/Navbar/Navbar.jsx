@@ -4,7 +4,6 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import BookOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link } from "react-router-dom";
@@ -22,7 +21,9 @@ const Navbar = () => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <span>MOREReaders</span>
         </Link>
-        <HomeOutlinedIcon />
+        <Link to='/' style={{ textDecoration: "none", color: "inherit" }}>
+         <HomeOutlinedIcon />
+        </Link>
         {darkMode ? (
           <LightModeOutlinedIcon onClick={toggle} />
         ) : (
@@ -36,7 +37,6 @@ const Navbar = () => {
       </div>
       <div className="right">
         <PersonOutlinedIcon />
-        <BookOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
           <img
