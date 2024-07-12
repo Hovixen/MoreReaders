@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from bson.objectid import ObjectId
 from backend.api import mongo, bcrypt
-from backend.api.models import User
 from datetime import datetime
 
 user = Blueprint('user', __name__)
