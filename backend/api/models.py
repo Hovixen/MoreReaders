@@ -46,6 +46,35 @@ class User:
         }
 
 class Post:
-    """ this is a post """
-    def __init__(self, description):
-        pass
+    """ This is the post model """
+    def __init__(self,
+                user_id: str,
+                title: str,
+                details: str,
+                likes: Optional[List[int]] = None,
+                book_img: Optional[str] = None,
+                book_file: Optional[str] = None,
+                comments: Optional[Dict[str, Any]] = None) -> None:
+        """ Initializes the post model """
+        self.title = title
+        self.user_id = user_id
+        self.details = details
+        self.likes = likes if likes is not None else []
+        self.book_img = book_img
+        self.book_file = book_file
+        self.comments = comments if comments is not None else {}
+        self.created_at = datetime.utcnow()
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """ returns the post attribute as a dictionary """
+        return {
+            'user_id': self.user_id,
+            'title': self.title,
+            'details': self.details,
+            'likes': self.likes,
+            'book_img': self.book_img,
+            'book_file': self.book_file,
+            'comments': self.comments,
+            'created_at': self.created_at
+        }
+        

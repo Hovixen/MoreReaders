@@ -16,5 +16,7 @@ jwt = JWTManager(app)
 from backend.api import routes
 from backend.api.auth.routes import auth
 from backend.api.users.routes import user
+from backend.api.posts.routes import post
 app.register_blueprint(auth)
 app.register_blueprint(user)
+app.register_blueprint(post)
