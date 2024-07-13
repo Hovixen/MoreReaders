@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import profile from '../../assets/profile.jpg';
+import profile from "../assets/profile.jpg";
 
 export const AuthContext = createContext();
 
@@ -7,7 +7,7 @@ export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
-
+ 
   const login = () => {
     //TO DO
     setCurrentUser({
