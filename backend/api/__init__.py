@@ -4,11 +4,12 @@ from flask_bcrypt import Bcrypt
 from flask_pymongo import PyMongo
 from flask_jwt_extended import JWTManager
 from backend.api.config import Config
-
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+CORS(app)
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
