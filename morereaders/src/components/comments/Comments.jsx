@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
+import profile_pic from "../../assets/profile_pic.png";
 
 const Comments = () => {
   const { currentUser } = useContext(AuthContext);
@@ -11,8 +12,7 @@ const Comments = () => {
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem nequeaspernatur ullam aperiam",
       name: "Foluke Brown",
       userId: 1,
-      profilePicture:
-        "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      profilePicture: profile_pic,
     },
     {
       id: 2,
