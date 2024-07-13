@@ -5,7 +5,6 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts"
 
@@ -41,7 +40,7 @@ const Profile = () => {
             </a>
           </div>
           <div className="center">
-            <span>Will Scot</span>
+            <span>Henrietta Onoge</span>
             <div className="info">
               <div className="item">
                 <PlaceIcon />
@@ -55,7 +54,6 @@ const Profile = () => {
             <button>follow</button>
           </div>
           <div className="right">
-            <EmailOutlinedIcon />
             <MoreVertIcon />
           </div>
         </div>
