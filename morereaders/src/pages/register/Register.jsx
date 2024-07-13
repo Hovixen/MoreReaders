@@ -11,7 +11,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   
   const regSubmit = async (event) => {
     event.preventDefault();
