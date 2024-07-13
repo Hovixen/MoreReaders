@@ -1,7 +1,7 @@
 import { useState } from "react";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./reg.scss";
-import api from '../../api';
 
 
 const Register = () => {
@@ -17,7 +17,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const res = await api.post('/signup', {
+      const res = await axios.post('/signup', {
         first_name: first_name,
         last_name: last_name,
         username: username,
