@@ -42,6 +42,7 @@ const Login = () => {
             />
             <button type="submit">Login</button>
           </form>
+          { error && <p className="error">{error}</p> }
           <span>Don't have an account?
           <Link to="/register">Signup</Link>
           </span>
