@@ -49,6 +49,7 @@ def login():
                 {
                     'message': 'User successfully logged in',
                     'user_id': str(user['_id']),
+                    'username': user['username'],
                     'access_token': access_token,
                     'refresh_token': refresh_token
                 }
