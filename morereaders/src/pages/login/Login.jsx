@@ -9,9 +9,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    login(username, password);
+    setError("")
+    const result = await login(username, password);
+    if (!result.success){
+      setError(result.message);
+    }
   };
 
   return (
