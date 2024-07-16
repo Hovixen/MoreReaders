@@ -17,8 +17,11 @@ def add_post():
     current_user_id = get_jwt_identity()
     title = data.get('title')
     details = data.get('details')
+    book_img = data.get('book_img')
+    book_file = data.get('book_file')
 
-    post = Post(current_user_id, title, details)
+
+    post = Post(current_user_id, title, details, book_img, book_file )
     post_dict = post.to_dict()
     # post_dict['created_at'] = datetime.utcnow()
     mongo.db.posts.insert_one(post_dict)
