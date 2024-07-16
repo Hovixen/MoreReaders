@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import CircularProgress from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import "./reg.scss";
 
@@ -25,7 +26,7 @@ const Register = () => {
         password: password,
       });
 
-      if (res.data.success){
+      if (res.status === 201){
         navigate('/login')
       } else {
         setErrorMsg(res.data.message)
@@ -43,21 +44,39 @@ const Register = () => {
           <h1>SignUp</h1>
           <form onSubmit={regSubmit}>
             <input
-              type="text" placeholder="First Name" value={first_name} onChange={(e) => setFirst_name(e.target.value)}
+              type="text"
+              placeholder="First Name"
+              value={first_name}
+              required
+              onChange={(e) => setFirst_name(e.target.value)}
             />
             <input 
-              type="text" placeholder="Last Name" value={last_name} onChange={(e) => setLast_name(e.target.value)}
+              type="text"
+              placeholder="Last Name"
+              value={last_name}
+              required
+              onChange={(e) => setLast_name(e.target.value)}
             />
             <input
-              type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
+              type="text"
+              placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
             />
             <input
-              type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input 
-              type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              value={password}
+              required
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button>Signup</button>
+            <button type="submit">
+              { loading ? <CircularProgress color="white"/> : Signup }</button>
           </form>
 
           { errorMsg && <div className="error-message">{errorMsg}</div> }

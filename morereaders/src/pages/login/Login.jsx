@@ -1,19 +1,23 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./login.scss";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("")
-    const result = await login(username, password);
-    if (!result.success){
+    const result = await login(email, password);
+
+    if (result.success) {
+      navigate("/");
+    } else {
       setError(result.message);
     }
   };
@@ -30,9 +34,9 @@ const Login = () => {
           <form onSubmit={handleLogin}>
             <input 
               type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input 
               type="password" 
