@@ -29,7 +29,9 @@ const Navbar = () => {
         ) : (
           <DarkModeOutlinedIcon onClick={toggle} />
         )}
-        <GridViewOutlinedIcon />
+         <Link to = "book" style={{ textDecoration: "none", color: "inherit" }}>
+         <GridViewOutlinedIcon />
+         </Link>
         <div className="search">
           <SearchOutlinedIcon />
           <input type="text" placeholder="Search..." />
