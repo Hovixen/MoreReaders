@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import CircularProgress from "@mui/icons-material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Link, useNavigate } from "react-router-dom";
 import "./reg.scss";
 
@@ -12,10 +12,12 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   
   const regSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const res = await axios.post('/signup', {
@@ -34,6 +36,8 @@ const Register = () => {
     } catch (error) {
       console.error(`There was an error registering ${error}`)
       setErrorMsg('An unexpected error occured.')
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,6 +46,7 @@ const Register = () => {
       <div className="card">
         <div className="left">
           <h1>SignUp</h1>
+          { errorMsg && <div className="error-message">{errorMsg}</div> }
           <form onSubmit={regSubmit}>
             <input
               type="text"
@@ -59,7 +64,9 @@ const Register = () => {
             />
             <input
               type="text"
-              placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username" value={username}
+              required
+              onChange={(e) => setUsername(e.target.value)}
             />
             <input
               type="email"
@@ -75,11 +82,10 @@ const Register = () => {
               required
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">
-              { loading ? <CircularProgress color="white"/> : Signup }</button>
+            <button type="submit" disabled={loading}>
+              { loading ? <CircularProgress size={24} color="inherit"/> : "Signup" }</button>
           </form>
 
-          { errorMsg && <div className="error-message">{errorMsg}</div> }
           <span>Already have an account?
           <Link to="/login">Login
           </Link>

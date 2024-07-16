@@ -19,7 +19,7 @@ export const AuthContextProvider = ({ children }) => {
       return { success: true }
     } catch (error){
       console.error(`Login error ${error}`)
-      const message = error.response && error.response.data ? error.response.data.message : "An unknown error occurred";
+      const message = "An unknown error occurred";
       return { success: false, message };
     }    
   };

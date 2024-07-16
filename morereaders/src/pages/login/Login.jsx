@@ -31,22 +31,25 @@ const Login = () => {
       <div className="card">
         <div className="right">
           <h1>Login</h1>
+          { error && <p className="error">{error}</p> }
           <form onSubmit={handleLogin}>
             <input 
-              type="text"
+              type="email"
               placeholder="Email"
               value={email}
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
             <input 
               type="password" 
               placeholder="Password"
               value={password}
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Login</button>
           </form>
-          { error && <p className="error">{error}</p> }
+
           <span>Don't have an account?
           <Link to="/register">Signup</Link>
           </span>
