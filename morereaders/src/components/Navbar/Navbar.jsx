@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
-import CreatePost from "../create post/CreatePost";
+import CreatePost from "../createPost/CreatePost";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);

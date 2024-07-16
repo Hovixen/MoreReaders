@@ -5,6 +5,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AuthContextProvider } from "./context/authContext";
 import { DarkModeContextProvider } from "./context/darkModeContext";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const defaultTheme = createTheme();
 

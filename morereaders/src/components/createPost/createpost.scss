@@ -1,0 +1,88 @@
+@import "../../style.scss";
+
+.createPost {
+    @include themify($themes) {
+        display: flex;
+        align-items: center;
+
+        .postButton {
+            padding: 5px 12px;
+            background-color: themed("bg");
+            color: themed("textColor");
+            border: 2px solid darken(themed("bg"), 10%);
+            border-radius: 20px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: lighten(themed("bg"), 5%);
+            }
+
+            &:active {
+                background-color: darken(themed("bg"), 5%);
+            }
+        }
+
+
+
+        .postForm {
+            display: flex;
+            flex-direction: column;
+
+            input,
+            textarea {
+                margin-bottom: 10px;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .inputElement {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+                .inputFile {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    color: themed("bg");
+
+                    .inputIcon {
+                        margin-right: 5px;
+                    }
+
+                    input {
+                        display: none;
+                    }
+                }
+            }
+
+            .formButton {
+                padding: 10px 20px;
+                background-color: themed("bg");
+                color: themed("textColor");
+                border: 2px solid darken(themed("bg"), 10%);
+                border-radius: 20px;
+
+                &:hover {
+                    background-color: lighten(themed("bg"), 5%);
+                }
+
+                &:active {
+                    background-color: darken(themed("bg"), 5%);
+                }
+
+                &:disabled {
+                    background-color: lighten(themed("bg"), 10%);
+                    color: gray;
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    }
+}
