@@ -1,10 +1,12 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from bson.objectid import ObjectId
 from backend.api.models import Post
 from backend.api import mongo
 from datetime import datetime
+from backend.api.utils import upload
 import uuid
+import os
 
 post = Blueprint('post', __name__)
 
@@ -13,15 +15,29 @@ post = Blueprint('post', __name__)
 @jwt_required()
 def add_post():
     """ add users post """
-    data = request.json
+    data = dict(request.form)
     current_user_id = get_jwt_identity()
     title = data.get('title')
     details = data.get('details')
     book_img = data.get('book_img')
     book_file = data.get('book_file')
 
+    print("book_img: {}".format(book_img))
+    print("book_file: {}".format(book_file))
 
-    post = Post(current_user_id, title, details, book_img, book_file )
+    img_path = None
+    book_path = None
+
+    if not title or not details:
+        return jsonify({'error': 'Title and details are required'}), 400
+    if book_img:
+        img_path = upload(book_img, current_app.config['UPLOAD_IMAGE'])
+        print("img_path:{}".format(img_path))
+    if book_file:
+        book_path = upload(book_file, current_app.config['UPLOAD_BOOKS'])
+        print("book_path:{}".format(book_path))
+
+    post = Post(current_user_id, title, details, img_path, book_path)
     post_dict = post.to_dict()
     # post_dict['created_at'] = datetime.utcnow()
     mongo.db.posts.insert_one(post_dict)
