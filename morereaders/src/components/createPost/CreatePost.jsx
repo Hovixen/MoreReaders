@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./createpost.scss";
 import axios from "axios";
 import Modal from "../modal/Modal";
 import { PermMedia, UploadFile } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
+import { AuthContext } from "../../context/authContext";
 
 const CreatePost = () => {
+    const { currentUser } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(false);
@@ -24,14 +26,24 @@ const CreatePost = () => {
     const handleSubmitForm = async (event) => {
         event.preventDefault();
         setLoading(true);
-
+    
         try {
+            const formData = new FormData();
+            formData.append('title', postContent.title);
+            formData.append('details', postContent.details);
 
-            const result = await axios.post('/post', {
-                title: postContent.title,
-                details: postContent.details,
-                book_img: postContent.book_img,
-                book_file: postContent.book_file
+            if (postContent.book_img) {
+                formData.append('book_img', postContent.book_img);
+            }
+            if (postContent.book_file) {
+                formData.append('book_file', postContent.book_file);
+            }
+
+            const result = await axios.post('/post', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${currentUser.access_token}`
+                }
             });
             console.log(result);
 
