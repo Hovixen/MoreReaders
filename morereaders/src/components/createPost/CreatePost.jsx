@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./createpost.scss";
 import axios from "axios";
 import Modal from "../modal/Modal";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import { PermMedia, UploadFile } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
@@ -68,10 +69,8 @@ const CreatePost = () => {
 
     return (
         <div className="createPost">
-            <button className="postButton" onClick={handleButtonClick}>
-                <span className="postText">Create Post</span>
-            </button>
-            <div>
+            <PostAddIcon onClick={handleButtonClick}/>
+        <div>
 
                 <Modal
                     isOpen={isModalOpen}

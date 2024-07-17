@@ -1,5 +1,4 @@
 import "./sidebar.scss";
-import BookShelves from "../../components/BookShelves/shelflist";
 import { Link } from "react-router-dom"; 
 import { useContext } from "react";
 import Slider from "react-slick";
@@ -62,14 +61,44 @@ const SideBar = () => {
         </div>
         <hr />
         <div className="menu">
-          <span>You Might Like</span>
+          <span class="suggestion">You Might Like</span>
           <Slider {...settings}>
-             <BookShelves />
+             {data.map((d) => (
+              <div key={d.name}>
+                <div className="h-56"> 
+                  <img src={d.img} alt=""/>
+                </div>
+              </div>
+             ))}
           </Slider>       
         </div>
-        </div>
+      </div>
     </div>
   );
-};
+}
+
+const data = [
+
+  {
+    name: "Hide & Seek",
+    img: "../../assets/hns.jpeg"
+  },
+
+  {
+    name: "Hide & Seek",
+    img: "../../assets/hns.jpeg"
+  },
+
+  {
+    name: "Hide & Seek",
+    img: "../../assets/hns.jpeg"
+  },
+
+  {
+    name: "Hide & Seek",
+    img: "../../assets/hns.jpeg"
+  },
+
+];
 
 export default SideBar;
