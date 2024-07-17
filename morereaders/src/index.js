@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { AppProvider } from "./libContext";
 import App from "./App";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AuthContextProvider } from "./context/authContext";
@@ -11,6 +12,7 @@ const defaultTheme = createTheme();
 
 root.render(
   <React.StrictMode>
+    <AppProvider>
     <ThemeProvider theme={defaultTheme}>
       <DarkModeContextProvider>
         <AuthContextProvider>
@@ -18,5 +20,6 @@ root.render(
         </AuthContextProvider>
       </DarkModeContextProvider>
     </ThemeProvider>
+    </AppProvider>
   </React.StrictMode>
 );

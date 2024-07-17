@@ -1,5 +1,7 @@
 import "./sidebar.scss";
-import Posts from "../../components/posts/Posts"
+import BookShelves from "../../components/BookShelves/shelflist";
+import { Link } from "react-router-dom"; 
+import { useContext } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -9,7 +11,6 @@ import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import { AuthContext } from "../../context/authContext";
-import { useContext } from "react";
 
 const SideBar = () => {
 
@@ -37,9 +38,13 @@ const SideBar = () => {
             <ContactsOutlinedIcon />
             <span>Friends</span>
           </div>
-          <div className="item">
+          <div className="item" >
+          <Link to='book' style={{ textDecoration: "none", color: "inherit" }}>
             <BookOutlinedIcon />
+          </Link>
+          <Link to='book' style={{ textDecoration: "none", color: "inherit" }}>
             <span>Library</span>
+          </Link>
           </div>
           <div className="item">
             <GroupOutlinedIcon />
@@ -59,7 +64,7 @@ const SideBar = () => {
         <div className="menu">
           <span>You Might Like</span>
           <Slider {...settings}>
-            <Posts/>
+             <BookShelves />
           </Slider>       
         </div>
         </div>
