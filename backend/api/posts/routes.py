@@ -38,7 +38,7 @@ def add_post():
         book_path = upload(book_file, current_app.config['UPLOAD_BOOKS'])
         print("book_path:{}".format(book_path))
 
-    post = Post(current_user_id, title, details, img_path, book_path)
+    post = Post(current_user_id, title, details, book_img=img_path, book_file=book_path)
     post_dict = post.to_dict()
     # post_dict['created_at'] = datetime.utcnow()
     mongo.db.posts.insert_one(post_dict)
