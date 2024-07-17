@@ -1,4 +1,3 @@
-```markdown
 # **MOREREADERS**
 ## Social App for Readers
 *This project is done to satisfy the **Alx_SE** specialization project*
@@ -49,9 +48,8 @@
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/https://github.com/Hovixen/MoreReaders.git
-   ```
-
+   git clone https://github.com/Hovixen/MoreReaders.git
+   
 2. **Backend Setup**:
    - Navigate to the backend directory:
      ```sh
