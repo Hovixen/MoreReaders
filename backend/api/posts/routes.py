@@ -19,8 +19,9 @@ def add_post():
     current_user_id = get_jwt_identity()
     title = data.get('title')
     details = data.get('details')
-    book_img = data.get('book_img')
-    book_file = data.get('book_file')
+    # fetch files from form
+    book_img = request.files.get('book_img')
+    book_file = request.files.get('book_file')
 
     print("book_img: {}".format(book_img))
     print("book_file: {}".format(book_file))
