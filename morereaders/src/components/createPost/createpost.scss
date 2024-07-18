@@ -3,15 +3,24 @@
 .createPost {
     @include themify($themes) {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        padding: 20px;
+        gap: 0;
+
+        h2 {
+            font-size: 24px;
+            color: themed("textColor");
+        }
 
         .postButton {
-            padding: 5px 12px;
+            padding: 10px 20px;
             background-color: themed("bg");
             color: themed("textColor");
             border: 2px solid darken(themed("bg"), 10%);
             border-radius: 20px;
             cursor: pointer;
+            font-size: 16px;
 
             &:hover {
                 background-color: lighten(themed("bg"), 5%);
@@ -22,24 +31,26 @@
             }
         }
 
-
-
         .postForm {
             display: flex;
             flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            gap: 15px;
 
             input,
             textarea {
-                margin-bottom: 10px;
-                padding: 10px;
+                padding: 15px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
+                font-size: 16px;
             }
 
             .inputElement {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 10px;
+                align-items: center;
+                gap: 15px;
 
                 .inputFile {
                     display: flex;
@@ -48,7 +59,7 @@
                     color: themed("bg");
 
                     .inputIcon {
-                        margin-right: 5px;
+                        margin-right: 10px;
                     }
 
                     input {
@@ -58,11 +69,12 @@
             }
 
             .formButton {
-                padding: 10px 20px;
+                padding: 15px 30px;
                 background-color: themed("bg");
                 color: themed("textColor");
                 border: 2px solid darken(themed("bg"), 10%);
                 border-radius: 20px;
+                font-size: 16px;
 
                 &:hover {
                     background-color: lighten(themed("bg"), 5%);
@@ -82,7 +94,25 @@
 
         .error {
             color: red;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .closeButton {
+            padding: 5px 10px;
+            color: themed("textColor");
+            border: 2px solid darken(themed("bg"), 10%);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 8px;
+
+            &:hover {
+                background-color: lighten(themed("bg"), 5%);
+            }
+
+            &:active {
+                background-color: darken(themed("bg"), 5%);
+            }
         }
     }
 }

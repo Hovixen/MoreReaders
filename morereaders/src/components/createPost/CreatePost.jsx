@@ -82,7 +82,7 @@ const CreatePost = () => {
     return (
         <div className="createPost">
             <PostAddIcon onClick={handleButtonClick}/>
-        <div>
+            <div>
 
                 <Modal
                     isOpen={isModalOpen}
@@ -136,8 +136,9 @@ const CreatePost = () => {
                         <button type="submit" className="formButton" disabled={loading}>
                             {loading ? < CircularProgress size={24} /> : "Post"}
                         </button>
+                    
+                    <button onClick={() => setIsModalOpen(false)} className="closeButton">Close</button>
                     </form>
-                    <button onClick={() => setIsModalOpen(false)} className="formButton">Close</button>
                 </Modal>
             </div>
         </div>

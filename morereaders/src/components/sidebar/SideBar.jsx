@@ -9,6 +9,11 @@ import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import BookOutlinedIcon from "@mui/icons-material/BookOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
+import quick from "../../assets/quick.jpeg";
+import tarzan from "../../assets/tarzan.jpeg";
+import gilded from "../../assets/gilded.jpeg";
+import magic from "../../assets/magic.jpeg";
+import look from "../../assets/look.jpeg";
 import { AuthContext } from "../../context/authContext";
 
 const SideBar = () => {
@@ -18,7 +23,7 @@ const SideBar = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToshow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1
   };
 
@@ -38,10 +43,10 @@ const SideBar = () => {
             <span>Friends</span>
           </div>
           <div className="item" >
-          <Link to='book' style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
             <BookOutlinedIcon />
           </Link>
-          <Link to='book' style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
             <span>Library</span>
           </Link>
           </div>
@@ -80,23 +85,28 @@ const SideBar = () => {
 const data = [
 
   {
-    name: "Hide & Seek",
-    img: "../../assets/hns.jpeg"
+    name: "Don't Look",
+    img: look
   },
 
   {
-    name: "Hide & Seek",
-    img: "../../assets/hns.jpeg"
+    name: "Quicksand",
+    img: quick
   },
 
   {
-    name: "Hide & Seek",
-    img: "../../assets/hns.jpeg"
+    name: "Gilded",
+    img: gilded
   },
 
   {
-    name: "Hide & Seek",
-    img: "../../assets/hns.jpeg"
+    name: "Magic",
+    img: magic
+  },
+
+  {
+    name: "Tarzan",
+    img: tarzan
   },
 
 ];
