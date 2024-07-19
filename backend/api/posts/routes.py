@@ -17,6 +17,10 @@ def add_post():
     """ add users post """
     data = dict(request.form)
     current_user_id = get_jwt_identity()
+    user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
+    username = user.get('username', "")
+    print (username)
+
     title = data.get('title')
     details = data.get('details')
     # fetch files from form
@@ -38,7 +42,7 @@ def add_post():
         book_path = upload(book_file, current_app.config['UPLOAD_BOOKS'])
         print("book_path:{}".format(book_path))
 
-    post = Post(current_user_id, title, details, book_img=img_path, book_file=book_path)
+    post = Post(current_user_id, username, title, details, book_img=img_path, book_file=book_path)
     post_dict = post.to_dict()
     # post_dict['created_at'] = datetime.utcnow()
     mongo.db.posts.insert_one(post_dict)
@@ -161,9 +165,9 @@ def timeline():
     all_id = [current_user_id]
     # print (all_id)
     for id_following in id_followings:
-        all_id.append(str(id_folloing['_id']))
+        all_id.append(str(id_following))
     posts = list(mongo.db.posts.find({'user_id': {'$in': all_id}}))
-    print (posts)
+    # print (posts)
 
     for post in posts:
         post['_id'] = str(post['_id'])
@@ -174,6 +178,17 @@ def timeline():
         }), 200 
 
 
+@post.route('/comments/<post_id>', strict_slashes=False)
+@jwt_required()
+def get_comments(post_id):
+    """ retrieves comments from post_id """
+    post = mongo.db.posts.find_one({'_id': ObjectId(post_id)})
+    if not post:
+        return jsonify({'error': 'Post not found'}), 404
+    comments = post.get('comments')
+    return jsonify(comments),200
+    
+    
 @post.route('/comments/<post_id>', methods=['POST'], strict_slashes=False)
 @jwt_required()
 def add_comments(post_id):

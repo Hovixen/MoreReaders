@@ -19,9 +19,9 @@ class Config:
     JWT_REFRESH_TOKEN_EXPIRES = 86400
     MONGO_URI = 'mongodb+srv://{}:{}@{}'.format(esc_user, esc_pwd, mongo_url)
 
-    REACT_PUBLIC_FOLDER = os.path.join(os.getcwd(), 'morereaders', 'public')
+    REACT_PUBLIC_FOLDER = os.path.join('morereaders', 'public')
     UPLOAD_IMAGE = os.path.join(REACT_PUBLIC_FOLDER, 'assets', 'images')
     UPLOAD_BOOKS = os.path.join(REACT_PUBLIC_FOLDER, 'assets', 'books')
 
-    os.makedirs(UPLOAD_IMAGE, exist_ok=True)     
+    os.makedirs(UPLOAD_IMAGE, exist_ok=True)    
     os.makedirs(UPLOAD_BOOKS, exist_ok=True)     

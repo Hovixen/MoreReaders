@@ -5,12 +5,14 @@ import Modal from "../modal/Modal";
 import { PermMedia, UploadFile } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { AuthContext } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
 
-const CreatePost = () => {
+const CreatePost = ({ newPost }) => {
     const { currentUser } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
     const [postContent, setPostContent] = useState({
 
         title: '',
@@ -45,6 +47,9 @@ const CreatePost = () => {
                     "Authorization": `Bearer ${currentUser.access_token}`
                 }
             });
+            if (result.status === 200){
+                navigate(0);
+            }
             console.log(result);
 
         } catch (error) {
