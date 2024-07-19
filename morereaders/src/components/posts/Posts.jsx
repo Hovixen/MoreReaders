@@ -1,6 +1,4 @@
 import Post from "../post/Post";
-import magic from "../../assets/magic.jpeg";
-import quick from "../../assets/quick.jpeg";
 import "./posts.scss";
 import { AuthContext } from "../../context/authContext";
 import { useContext } from "react";
