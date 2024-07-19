@@ -2,14 +2,15 @@ import "./navbar.scss";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import CreatePost from "../createPost/CreatePost";
+
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -30,13 +31,17 @@ const Navbar = () => {
           ) : (
             <DarkModeOutlinedIcon onClick={toggle} />
           )}
-          <CreatePost />
-          <div className="search">
+
+          
+          <div class="search">
             <SearchOutlinedIcon />
             <input type="text" placeholder="Search..." />
           </div>
+          
         </div>
+
         <div className="right">
+          <CreatePost />
           <PersonOutlinedIcon />
           <NotificationsOutlinedIcon />
           <div className="user">

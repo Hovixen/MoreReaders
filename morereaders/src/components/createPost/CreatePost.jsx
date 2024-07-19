@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import "./createpost.scss";
 import axios from "axios";
 import Modal from "../modal/Modal";
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import { PermMedia, UploadFile } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import { AuthContext } from "../../context/authContext";
@@ -85,9 +86,7 @@ const CreatePost = ({ newPost }) => {
 
     return (
         <div className="createPost">
-            <button className="postButton" onClick={handleButtonClick}>
-                <span className="postText">Create Post</span>
-            </button>
+            <PostAddIcon onClick={handleButtonClick}/>
             <div>
 
                 <Modal
@@ -142,8 +141,9 @@ const CreatePost = ({ newPost }) => {
                         <button type="submit" className="formButton" disabled={loading}>
                             {loading ? < CircularProgress size={24} /> : "Post"}
                         </button>
+                    
+                    <button onClick={() => setIsModalOpen(false)} className="closeButton">Close</button>
                     </form>
-                    <button onClick={() => setIsModalOpen(false)} className="formButton">Close</button>
                 </Modal>
             </div>
         </div>

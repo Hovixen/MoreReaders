@@ -52,6 +52,11 @@
           span {
             font-size: 14px;
           }
+        .suggestion {
+            font-weight: 900;
+            font-size: 10px;
+            
+          }
         }
 
         .item {
@@ -67,6 +72,13 @@
             font-size: 14px;
           }
         }
+      .slick-slide > div {
+        margin: 0 10px;
+      }
+
+      .slick-dots li.slick-active button::before {
+        color:purple !important;
+      }
       }
     }
   }

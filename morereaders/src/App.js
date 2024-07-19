@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import SideBar from "./components/sidebar/SideBar";
 import BookDetails from "./components/BookItemDetails/details";
 import BookShelves from "./components/BookShelves/shelflist";
+import Library from "./components/library/Library";
 import Profile from "./pages/profile/Profile";
 import Home from "./pages/Homepage/Home";
 import Login from "./pages/login/Login";
@@ -60,6 +61,10 @@ function App() {
               
               { path: "/book/:id",
                 element: <BookDetails />,
+              },
+
+              { path: "/Library",
+                element: <Library />,
               },
           ],
         },
