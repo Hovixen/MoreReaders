@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
       const user = {
         "id": res.data.user_id,
         "username": res.data.username,
+        "profilePic": res.data.profile_picture,
         "access_token": res.data.access_token,
         "refresh_token": res.data.refresh_token
       }

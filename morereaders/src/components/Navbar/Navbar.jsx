@@ -33,7 +33,7 @@ const Navbar = () => {
           )}
 
           
-          <div class="search">
+          <div className="search">
             <SearchOutlinedIcon />
             <input type="text" placeholder="Search..." />
           </div>
@@ -46,10 +46,10 @@ const Navbar = () => {
           <NotificationsOutlinedIcon />
           <div className="user">
             <img
-              src={currentUser.profilePic}
+              src={currentUser.profilePic ? currentUser.profilePic : "/assets/images/profile.jpg"}
               alt=""
             />
-            <span>{currentUser.name}</span>
+            <span>{currentUser.username}</span>
           </div>
         </div>
       </div>

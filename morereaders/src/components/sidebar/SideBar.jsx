@@ -36,7 +36,7 @@ const SideBar = () => {
               src={currentUser.profilePic}
               alt=""
             />
-            <span>{currentUser.name}</span>
+            <span>{currentUser.username}</span>
           </div>
           <div className="item">
             <ContactsOutlinedIcon />
@@ -66,7 +66,7 @@ const SideBar = () => {
         </div>
         <hr />
         <div className="menu">
-          <span class="suggestion">You Might Like</span>
+          <span className="suggestion">You Might Like</span>
           <Slider {...settings}>
              {data.map((d) => (
               <div key={d.name}>
