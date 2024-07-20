@@ -33,7 +33,7 @@ const SideBar = () => {
         <div className="menu">
           <div className="user">
             <img
-              src={currentUser.profilePic}
+              src={currentUser.profilePic || "/assets/images/profile.jpg"}
               alt=""
             />
             <span>{currentUser.username}</span>

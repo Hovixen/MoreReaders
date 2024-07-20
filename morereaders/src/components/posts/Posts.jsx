@@ -7,21 +7,36 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 // import CreatePost from "../createPost/CreatePost";
 
-const Posts = () => {
+const Posts = ({ user }) => {
   const [posts, setPost] = useState([]);
   const [loading, setLoading] = useState(true);
   const { currentUser } = useContext(AuthContext);
 
+  //console.log(user.username);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get('/post', {
-          headers: {
-            "Content-Type": "application/Json",
-            "Authorization": `Bearer ${currentUser.access_token}`,
-          }
-        });
-        const sortedPosts = res.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        let res;
+        let sortedPosts;
+
+        if (user && user.username) {
+          res = await axios.get(`/posts/${user.username}`, {
+            headers: {
+              "Authorization": `Bearer ${currentUser.access_token}`
+            }
+          });
+          console.log(res.data);
+          sortedPosts = res.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        } else {
+          res = await axios.get('/timeline', {
+            headers: {
+              "Content-Type": "application/Json",
+              "Authorization": `Bearer ${currentUser.access_token}`,
+            }
+          });
+          sortedPosts = res.data.posts.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        }
         setPost(sortedPosts);
         console.log(res.data);
       } catch (error) {
@@ -31,11 +46,11 @@ const Posts = () => {
       }
     }
     fetchPost();
-  }, [currentUser]);
-  
-//  const newPost = (addPost) => {
-//    setPost((prevPost) => [addPost, ...prevPost])
-//  }
+  }, [currentUser, user]);
+
+  //  const newPost = (addPost) => {
+  //    setPost((prevPost) => [addPost, ...prevPost])
+  //  }
   return (
     <div className="posts">
       {loading ? (

@@ -153,10 +153,29 @@ def get_post(post_id):
     return jsonify({'post': post})
 
 
-@post.route('/post', strict_slashes=False)
+@post.route('/posts/<username>', strict_slashes=False)
+@jwt_required()
+def get_userPost(username):
+    """ retrieves only users post """
+    user = mongo.db.users.find_one({'username': username})
+    # print (user)
+    if not user:
+        return jsonify({'error': 'No user found'}), 404
+    
+    user_id = str(user['_id'])
+    posts = list(mongo.db.posts.find({'user_id': user_id}))
+
+    for post in posts:
+        post['_id'] = str(post['_id'])
+
+    return jsonify({'posts': posts}), 200
+
+
+    
+@post.route('/timeline', strict_slashes=False)
 @jwt_required()
 def timeline():
-    """ retrieves all users post """
+    """ retrieves all users post and followers """
     current_user_id = get_jwt_identity()
     current_user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
     # print (current_user_id)

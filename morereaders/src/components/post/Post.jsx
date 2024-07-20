@@ -11,6 +11,8 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { format } from "timeago.js"
 
+
+
 const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
   const [commentOpen, setCommentOpen] = useState(false);
@@ -18,7 +20,9 @@ const Post = ({ post }) => {
   const [filePath, setFilePath] = useState("");
   const [like, setLike] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  //console.log(PF);
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser.id));
   }, [post.likes, currentUser.id]);
@@ -101,7 +105,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.details}</p>
-          <img src={post.book_img} alt="" />
+          <img src={`${PF}${post.book_img}`} alt="" />
         </div>
         <div className="info">
           <div className="item" onClick={handleLike}>
