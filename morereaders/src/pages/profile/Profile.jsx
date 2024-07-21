@@ -11,11 +11,13 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
+import { ControlPoint } from "@mui/icons-material";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const { identifier } = useParams();
   const { currentUser } = useContext(AuthContext);
+  // const [profilePic, setProfilePic] = useState(currentUser.profilePic);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,25 +38,55 @@ const Profile = () => {
           });
         }
         setUser(res.data);
-      } catch(error) {
+      } catch (error) {
         console.error(`Error fetching user ${error}`)
       }
     };
     fetchUser()
-  },[identifier, currentUser.access_token]);
+  }, [identifier, currentUser.access_token]);
+
+  // const pictureUpload = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const res = await axios.put(`/profile/${currentUser.id}`, {
+  //       "profile_picture": profilePic
+  //     }, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "Authorization": `Bearer ${currentUser.access_token}`
+  //       }
+  //     });
+  //     setProfilePic(res.data);
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.error(`Error uploading profile picture ${error}`);
+  //   }
+  // }
+
+  // const handleFileChange = (event) => {
+  //   const { name, files } = event.target;
+  //   setProfilePic({
+  //     ...profilePic,
+  //     [name]: files[0]
+  //   });
+  // };
+
   return (
     <div className="profile">
       <div className="images">
-        <img
-          src={user.coverImg || "https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
-          alt=""
-          className="cover"
-        />
-        <img
-          src={user.profile_picture || "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"}
-          alt=""
-          className="profilePic"
-        />
+        {/* <form onSubmit={pictureUpload} className="imageForm"> */}
+          <img
+            src={user.coverImg || "https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
+            alt=""
+            className="cover"
+          />
+          <img
+            src={user.profile_picture || "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"}
+            alt=""
+            className="profilePic"
+          />
+          <ControlPoint className="addPicture" />
+        {/* </form> */}
       </div>
       <div className="profileContainer">
         <div className="uInfo">
@@ -90,9 +122,9 @@ const Profile = () => {
             <MoreVertIcon />
           </div>
         </div>
-      <Posts user={user}/>
+        <Posts user={user} />
       </div>
-    </div>
+    </div >
   );
 };
 
