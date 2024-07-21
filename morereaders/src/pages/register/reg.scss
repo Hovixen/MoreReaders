@@ -48,6 +48,11 @@
             font-weight: bold;
             cursor: pointer;
           }
+          button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            color: #f70a0a;
+          }
 
           span {
             font-size: 14px;

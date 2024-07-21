@@ -1,19 +1,23 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./login.scss";
 
 const Login = () => {
   const { login } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     setError("")
-    const result = await login(username, password);
-    if (!result.success){
+    const result = await login(email, password);
+
+    if (result.success) {
+      navigate("/");
+    } else {
       setError(result.message);
     }
   };
@@ -27,21 +31,25 @@ const Login = () => {
       <div className="card">
         <div className="right">
           <h1>Login</h1>
+          { error && <p className="error">{error}</p> }
           <form onSubmit={handleLogin}>
             <input 
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              type="email"
+              placeholder="Email"
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input 
               type="password" 
               placeholder="Password"
               value={password}
+              required
               onChange={(e) => setPassword(e.target.value)}
             />
             <button type="submit">Login</button>
           </form>
+
           <span>Don't have an account?
           <Link to="/register">Signup</Link>
           </span>

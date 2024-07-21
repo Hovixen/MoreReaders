@@ -1,10 +1,12 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from bson.objectid import ObjectId
 from backend.api.models import Post
 from backend.api import mongo
 from datetime import datetime
+from backend.api.utils import upload
 import uuid
+import os
 
 post = Blueprint('post', __name__)
 
@@ -13,12 +15,34 @@ post = Blueprint('post', __name__)
 @jwt_required()
 def add_post():
     """ add users post """
-    data = request.json
+    data = dict(request.form)
     current_user_id = get_jwt_identity()
+    user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
+    username = user.get('username', "")
+    print (username)
+
     title = data.get('title')
     details = data.get('details')
+    # fetch files from form
+    book_img = request.files.get('book_img')
+    book_file = request.files.get('book_file')
 
-    post = Post(current_user_id, title, details)
+    print("book_img: {}".format(book_img))
+    print("book_file: {}".format(book_file))
+
+    img_path = None
+    book_path = None
+
+    if not title or not details:
+        return jsonify({'error': 'Title and details are required'}), 400
+    if book_img:
+        img_path = upload(book_img, current_app.config['UPLOAD_IMAGE'])
+        print("img_path:{}".format(img_path))
+    if book_file:
+        book_path = upload(book_file, current_app.config['UPLOAD_BOOKS'])
+        print("book_path:{}".format(book_path))
+
+    post = Post(current_user_id, username, title, details, book_img=img_path, book_file=book_path)
     post_dict = post.to_dict()
     # post_dict['created_at'] = datetime.utcnow()
     mongo.db.posts.insert_one(post_dict)
@@ -129,10 +153,29 @@ def get_post(post_id):
     return jsonify({'post': post})
 
 
-@post.route('/post', strict_slashes=False)
+@post.route('/posts/<username>', strict_slashes=False)
+@jwt_required()
+def get_userPost(username):
+    """ retrieves only users post """
+    user = mongo.db.users.find_one({'username': username})
+    # print (user)
+    if not user:
+        return jsonify({'error': 'No user found'}), 404
+    
+    user_id = str(user['_id'])
+    posts = list(mongo.db.posts.find({'user_id': user_id}))
+
+    for post in posts:
+        post['_id'] = str(post['_id'])
+
+    return jsonify({'posts': posts}), 200
+
+
+    
+@post.route('/timeline', strict_slashes=False)
 @jwt_required()
 def timeline():
-    """ retrieves all users post """
+    """ retrieves all users post and followers """
     current_user_id = get_jwt_identity()
     current_user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
     # print (current_user_id)
@@ -141,9 +184,9 @@ def timeline():
     all_id = [current_user_id]
     # print (all_id)
     for id_following in id_followings:
-        all_id.append(str(id_folloing['_id']))
+        all_id.append(str(id_following))
     posts = list(mongo.db.posts.find({'user_id': {'$in': all_id}}))
-    print (posts)
+    # print (posts)
 
     for post in posts:
         post['_id'] = str(post['_id'])
@@ -154,17 +197,32 @@ def timeline():
         }), 200 
 
 
+@post.route('/comments/<post_id>', strict_slashes=False)
+@jwt_required()
+def get_comments(post_id):
+    """ retrieves comments from post_id """
+    post = mongo.db.posts.find_one({'_id': ObjectId(post_id)})
+    if not post:
+        return jsonify({'error': 'Post not found'}), 404
+    comments = post.get('comments')
+    return jsonify(comments),200
+    
+    
 @post.route('/comments/<post_id>', methods=['POST'], strict_slashes=False)
 @jwt_required()
 def add_comments(post_id):
     """ adds comments to a post """
     data = request.json
+    # current_user_id = get_jwt_identity()
+    # user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
     post = mongo.db.posts.find_one({'_id': ObjectId(post_id)})
     if not post:
         return jsonify({'error': 'Post not found'}), 404
 
     comment = {key: value for key, value in data.items()}
     comment['comment_id'] = str(uuid.uuid4())
+    # comment['userPic'] = user.get('profile_picture', '')
+    # comment['username'] = user.get('username', '')
     comment['created_at'] = datetime.utcnow()
     post['comments'][comment['comment_id']] = comment
 

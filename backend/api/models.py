@@ -49,6 +49,7 @@ class Post:
     """ This is the post model """
     def __init__(self,
                 user_id: str,
+                username: str,
                 title: str,
                 details: str,
                 likes: Optional[List[int]] = None,
@@ -58,6 +59,7 @@ class Post:
         """ Initializes the post model """
         self.title = title
         self.user_id = user_id
+        self.username= username
         self.details = details
         self.likes = likes if likes is not None else []
         self.book_img = book_img
@@ -69,6 +71,7 @@ class Post:
         """ returns the post attribute as a dictionary """
         return {
             'user_id': self.user_id,
+            'username': self.username,
             'title': self.title,
             'details': self.details,
             'likes': self.likes,

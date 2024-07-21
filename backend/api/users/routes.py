@@ -49,10 +49,37 @@ def update_profile(user_id):
 
 @user.route('/profile/<user_id>', strict_slashes=False)
 @jwt_required()
-def get_profile(user_id):
-    """ retrieves the users profile details """
-    
+def get_profileId(user_id):
+    """ retrieves user based on user_id only """
     user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    if not user:
+        return jsonify({'error': 'No user found'}), 404
+    
+    fields = [
+        '_id', 'first_name', 'last_name', 'username', 'email',
+        'profile_picture', 'followers', 'following', 'bio', 'created_at'
+        ]
+
+    res = {field: user.get(field) for field in fields}
+    res['id'] = str(res['_id'])
+    res.pop('_id')
+    return jsonify(res), 200
+
+    
+@user.route('/profile', strict_slashes=False)
+@jwt_required()
+def get_profile():
+    """ retrieves the users profile details based on username or user_id """
+    username = request.args.get('username')
+    user_id = request.args.get('user_id')
+
+    if username:
+        user = mongo.db.users.find_one({'username': username})
+    elif user_id:
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+    else:
+        return jsonify({'error': 'No username or user_id provided'}), 400
+    
     if not user:
         return jsonify({'error': 'No User found'}), 404
     
