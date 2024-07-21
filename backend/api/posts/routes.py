@@ -213,12 +213,16 @@ def get_comments(post_id):
 def add_comments(post_id):
     """ adds comments to a post """
     data = request.json
+    # current_user_id = get_jwt_identity()
+    # user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
     post = mongo.db.posts.find_one({'_id': ObjectId(post_id)})
     if not post:
         return jsonify({'error': 'Post not found'}), 404
 
     comment = {key: value for key, value in data.items()}
     comment['comment_id'] = str(uuid.uuid4())
+    # comment['userPic'] = user.get('profile_picture', '')
+    # comment['username'] = user.get('username', '')
     comment['created_at'] = datetime.utcnow()
     post['comments'][comment['comment_id']] = comment
 

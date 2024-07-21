@@ -8,10 +8,11 @@ import { format } from "timeago.js";
 const Comments = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
   const [comments, setComments] = useState({});
-  const [user, setUser] = useState({});
   const [postComment, setPostComment] = useState({
     comment: '',
     userId: currentUser.id,
+    username: currentUser.username,
+    userPic: currentUser.profilePic,
   });
 
   useEffect(() => {
@@ -30,22 +31,6 @@ const Comments = ({ post }) => {
     fetchComments();
   }, [post._id, currentUser]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get(`/profile/${post.user_id}`, {
-          headers: {
-            "Authorization": `Bearer ${currentUser.access_token}`
-          }
-        });
-        setUser(res.data);
-      } catch (error) {
-        console.error(`Error fetching user ${error}`)
-      }
-    };
-    fetchUser();
-  },[post.user_id, currentUser])
-
   const submitComment = async (event) => {
     event.preventDefault();
     if (!postComment.comment.trim()) {
@@ -55,6 +40,8 @@ const Comments = ({ post }) => {
       const res = await axios.post(`/comments/${post._id}`, {
         "userId": postComment.userId,
         "comment": postComment.comment,
+        "userPic": postComment.userPic,
+        "username": postComment.username,
       }, {
         headers: {
           "Content-Type": "application/json",
@@ -100,12 +87,12 @@ const Comments = ({ post }) => {
       </form>
       {Object.keys(comments).map((commentId) => (
         <div key={commentId} className="comment">
-          <img src={user.profile_picture ? 
-            user.profile_picture :
+          <img src={comments[commentId].userPic ? 
+            comments[commentId].userPic :
             "/assets/images/profile.jpg" } alt=""
           />
           <div className="info">
-            <span>{user.username}</span>
+            <span>{comments[commentId].username}</span>
             <p>{comments[commentId].comment}</p>
           </div>
           <span className="date">{format(comments[commentId].created_at)}</span>
