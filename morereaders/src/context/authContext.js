@@ -28,12 +28,22 @@ export const AuthContextProvider = ({ children }) => {
     }    
   };
 
+  const updateProfilePic = (newProfilePic) => {
+    setCurrentUser((prevPic) => ({
+      ...prevPic,
+      profilePic: newProfilePic
+    }));
+    localStorage.setItem("user", JSON.stringify({
+      ...currentUser,
+      profilePic: newProfilePic
+    }));
+  }
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, login, updateProfilePic }}>
       {children}
     </AuthContext.Provider>
   );

@@ -19,6 +19,7 @@ import { AuthContext } from "../../context/authContext";
 const SideBar = () => {
 
   const { currentUser } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const settings = {
     dots: true,
     infinite: true,
@@ -33,7 +34,7 @@ const SideBar = () => {
         <div className="menu">
           <div className="user">
             <img
-              src={currentUser.profilePic || "/assets/images/profile.jpg"}
+              src={`${PF}${currentUser.profilePic}` || "/assets/images/profile.jpg"}
               alt=""
             />
             <span>{currentUser.username}</span>

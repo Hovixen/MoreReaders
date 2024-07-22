@@ -12,11 +12,14 @@ import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 import { ControlPoint } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 
 const Profile = () => {
   const [user, setUser] = useState({});
   const { identifier } = useParams();
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, updateProfilePic } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // const [profilePic, setProfilePic] = useState(currentUser.profilePic);
 
   useEffect(() => {
@@ -45,8 +48,33 @@ const Profile = () => {
     fetchUser()
   }, [identifier, currentUser.access_token]);
 
-  // const pictureUpload = async (event) => {
-  //   event.preventDefault();
+  const pictureUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result;
+        setLoading(true);
+        try {
+          const res = await axios.put(`/profile/${currentUser.id}`,
+            { "profile_picture": base64String }, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${currentUser.access_token}`
+            }
+          });
+          const newProfilePic = res.data.updated_fields.profile_picture;
+          updateProfilePic(newProfilePic);
+          console.log(res.data);
+        } catch (error) {
+          console.error(`Error uploading profile picture ${error}`);
+        } finally {
+          setLoading(true);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   //   try {
   //     const res = await axios.put(`/profile/${currentUser.id}`, {
   //       "profile_picture": profilePic
@@ -75,17 +103,42 @@ const Profile = () => {
     <div className="profile">
       <div className="images">
         {/* <form onSubmit={pictureUpload} className="imageForm"> */}
-          <img
-            src={user.coverImg || "https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
-            alt=""
-            className="cover"
+        <img
+          src={user.coverImg || "https://images.pexels.com/photos/13440765/pexels-photo-13440765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
+          alt=""
+          className="cover"
+        />
+        <div className="profilePicContainer">
+            {loading ? (
+              <div className="profilePic">
+
+              <div className="Progress">
+                <CircularProgress />
+              </div>
+              </div>
+            ) : (
+              <img
+                src={
+                  user.profile_picture
+                    ? `${PF}${user.profile_picture}`
+                    : "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                }
+                alt=""
+                className="profilePic"
+              />
+            )}
+        </div>
+        <div className="addPicture">
+          <input
+            type="file"
+            id="fileLabel"
+            style={{ display: "none" }}
+            onChange={pictureUpload}
           />
-          <img
-            src={user.profile_picture || "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"}
-            alt=""
-            className="profilePic"
-          />
-          <ControlPoint className="addPicture" />
+          <label htmlFor="fileLabel" className="label">
+            <ControlPoint />
+          </label>
+        </div>
         {/* </form> */}
       </div>
       <div className="profileContainer">
