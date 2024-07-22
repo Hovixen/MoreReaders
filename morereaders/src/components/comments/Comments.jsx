@@ -8,6 +8,7 @@ import { format } from "timeago.js";
 const Comments = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
   const [comments, setComments] = useState({});
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [postComment, setPostComment] = useState({
     comment: '',
     userId: currentUser.id,
@@ -74,7 +75,7 @@ const Comments = ({ post }) => {
   return (
     <div className="comments">
       <form onSubmit={submitComment} className="write">
-        <img src={currentUser.profilePic ? currentUser.profilePic : "/assets/images/profile.jpg"} alt="" />
+        <img src={currentUser.profilePic ? `${PF}${currentUser.profilePic}`  : "/assets/images/profile.jpg"} alt="" />
         <input
           type="text"
           name="comment"
@@ -88,7 +89,7 @@ const Comments = ({ post }) => {
       {Object.keys(comments).map((commentId) => (
         <div key={commentId} className="comment">
           <img src={comments[commentId].userPic ? 
-            comments[commentId].userPic :
+            `${PF}${comments[commentId].userPic}` :
             "/assets/images/profile.jpg" } alt=""
           />
           <div className="info">

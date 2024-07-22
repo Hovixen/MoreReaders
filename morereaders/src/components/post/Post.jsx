@@ -90,7 +90,7 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={user.profile_picture ? user.profile_picture : "/assets/images/profile.jpg"} alt="" />
+            <img src={user.profile_picture ? `${PF}${user.profile_picture}` : "/assets/images/profile.jpg"} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.user_id}`}
@@ -116,11 +116,11 @@ const Post = ({ post }) => {
             <TextsmsOutlinedIcon />
             {commentCount}
           </div>
-          { post.book_file && (
-          <div className="item" onClick={handleDownload}>
-            <DownloadOutlinedIcon />
-            Download
-          </div>
+          {post.book_file && (
+            <div className="item" onClick={handleDownload}>
+              <DownloadOutlinedIcon />
+              Download
+            </div>
           )}
         </div>
         {commentOpen && <Comments post={post} />}

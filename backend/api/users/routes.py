@@ -1,7 +1,8 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from bson.objectid import ObjectId
 from backend.api import mongo, bcrypt
+from backend.api.utils import base64Img
 from datetime import datetime
 
 user = Blueprint('user', __name__)
@@ -12,6 +13,7 @@ user = Blueprint('user', __name__)
 def update_profile(user_id):
     """ updates the users profile details """
     data = request.json
+    profile_picture = data.get('profile_picture')
 
     current_user_id = get_jwt_identity()
     current_user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
@@ -28,8 +30,16 @@ def update_profile(user_id):
                 user_updates[key] = bcrypt.generate_password_hash(value).decode('utf-8')
             else:
                 user_updates[key] = value
+        # else:
+        #     return jsonify({'error': 'No valid field to update'}), 400
+
+    if profile_picture:
+        profile_path = base64Img(profile_picture, current_app.config['UPLOAD_IMAGE'])
+        if profile_path:
+            user_updates['profile_picture'] = profile_path
         else:
-            return jsonify({'error': 'No valid field to update'}), 400
+            return jsonify({'error': 'Failed to upload profile picture'}), 500
+            
     user_updates['updated_at'] = datetime.utcnow()
     
     # only returns the updated fields
