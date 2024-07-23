@@ -15,6 +15,7 @@ import CreatePost from "../createPost/CreatePost";
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const { currentUser } = useContext(AuthContext);
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   return (
     <>
@@ -46,7 +47,7 @@ const Navbar = () => {
           <NotificationsOutlinedIcon />
           <div className="user">
             <img
-              src={currentUser.profilePic ? currentUser.profilePic : "/assets/images/profile.jpg"}
+              src={currentUser.profilePic ? `${PF}${currentUser.profilePic}` : "/assets/images/profile.jpg"}
               alt=""
             />
             <span>{currentUser.username}</span>
