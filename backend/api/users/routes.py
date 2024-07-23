@@ -20,7 +20,7 @@ def update_profile(user_id):
     if current_user_id != user_id and not current_user['is_admin']:
         return jsonify({'error': 'You can only update your profile'}), 403
     
-    valid_keys = ['username', 'password', 'bio']
+    valid_keys = ['username', 'password', 'bio', 'profile_picture']
     user_updates = {}
     for key, value in data.items():
         if key in valid_keys:
