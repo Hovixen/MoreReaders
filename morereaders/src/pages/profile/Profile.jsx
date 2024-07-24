@@ -109,36 +109,38 @@ const Profile = () => {
           className="cover"
         />
         <div className="profilePicContainer">
-            {loading ? (
-              <div className="profilePic">
+          {loading ? (
+            <div className="profilePic">
 
               <div className="Progress">
                 <CircularProgress />
               </div>
-              </div>
-            ) : (
-              <img
-                src={
-                  user.profile_picture
-                    ? `${PF}${user.profile_picture}`
-                    : "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-                }
-                alt=""
-                className="profilePic"
-              />
-            )}
+            </div>
+          ) : (
+            <img
+              src={
+                user.profile_picture
+                  ? `${PF}${user.profile_picture}`
+                  : "https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+              }
+              alt=""
+              className="profilePic"
+            />
+          )}
         </div>
-        <div className="addPicture">
-          <input
-            type="file"
-            id="fileLabel"
-            style={{ display: "none" }}
-            onChange={pictureUpload}
-          />
-          <label htmlFor="fileLabel" className="label">
-            <ControlPoint />
-          </label>
-        </div>
+        {currentUser.id === user.id && (
+          <div className="addPicture">
+            <input
+              type="file"
+              id="fileLabel"
+              style={{ display: "none" }}
+              onChange={pictureUpload}
+            />
+            <label htmlFor="fileLabel" className="label">
+              <ControlPoint />
+            </label>
+          </div>
+        )}
         {/* </form> */}
       </div>
       <div className="profileContainer">
