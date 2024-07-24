@@ -50,6 +50,7 @@ def login():
                     'message': 'User successfully logged in',
                     'user_id': str(user['_id']),
                     'username': user['username'],
+                    'profile_picture': user['profile_picture'],
                     'access_token': access_token,
                     'refresh_token': refresh_token
                 }

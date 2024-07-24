@@ -87,16 +87,16 @@ const CreatePost = ({ newPost }) => {
     return (
         <div className="createPost">
             <PostAddIcon onClick={handleButtonClick}/>
-            <div>
+            <div className="postModal">
 
                 <Modal
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     contentLabel="Post Modal"
                 >
-                    <h2>Create Post</h2>
                     {errorMsg && <div className="error-message">{errorMsg}</div>}
                     <form onSubmit={handleSubmitForm} className="postForm">
+                    <h2>Create Post</h2>
                         <input
                             type="text"
                             name="title"
@@ -141,9 +141,10 @@ const CreatePost = ({ newPost }) => {
                         <button type="submit" className="formButton" disabled={loading}>
                             {loading ? < CircularProgress size={24} /> : "Post"}
                         </button>
+                        
                     
-                    <button onClick={() => setIsModalOpen(false)} className="closeButton">Close</button>
                     </form>
+                    
                 </Modal>
             </div>
         </div>

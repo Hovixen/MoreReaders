@@ -2,22 +2,24 @@
 
 .createPost {
     @include themify($themes) {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        gap: 0;
+        margin-top: 21%;
+        margin-right: -1rem;
+        cursor: pointer;
 
-        h2 {
-            font-size: 24px;
-            color: themed("textColor");
+        .postModal{
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        
+
         }
+
 
         .postButton {
             padding: 10px 20px;
             background-color: themed("bg");
             color: themed("textColor");
-            border: 2px solid darken(themed("bg"), 10%);
+            border: none;
             border-radius: 20px;
             cursor: pointer;
             font-size: 16px;
@@ -36,7 +38,15 @@
             flex-direction: column;
             width: 100%;
             max-width: 600px;
-            gap: 15px;
+            gap: 63px;
+
+            h2 {
+                font-size: 24px;
+                color: black;
+                margin-bottom: 0rem;
+                margin-top: 10%;
+                margin-left: 33%;
+            }
 
             input,
             textarea {
@@ -99,12 +109,12 @@
         }
 
         .closeButton {
-            padding: 5px 10px;
-            color: themed("textColor");
-            border: 2px solid darken(themed("bg"), 10%);
-            border-radius: 10px;
+            padding: 5px 5px;
+            color: grey;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 8px;
+            font-size: 4px;
 
             &:hover {
                 background-color: lighten(themed("bg"), 5%);
