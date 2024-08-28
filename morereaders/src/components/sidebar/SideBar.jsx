@@ -1,5 +1,5 @@
 import "./sidebar.scss";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -40,16 +40,20 @@ const SideBar = () => {
             <span>{currentUser.username}</span>
           </div>
           <div className="item">
-            <ContactsOutlinedIcon />
-            <span>Friends</span>
+            <Link to="Friends" style={{ textDecoration: "none", color: "inherit" }}>
+              <ContactsOutlinedIcon />
+            </Link>
+            <Link to="Friends" style={{ textDecoration: "none", color: "inherit" }}>
+              <span>Friends</span>
+            </Link>
           </div>
           <div className="item" >
-          <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
-            <BookOutlinedIcon />
-          </Link>
-          <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
-            <span>Library</span>
-          </Link>
+            <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
+              <BookOutlinedIcon />
+            </Link>
+            <Link to='Library' style={{ textDecoration: "none", color: "inherit" }}>
+              <span>Library</span>
+            </Link>
           </div>
           <div className="item">
             <GroupOutlinedIcon />
@@ -62,21 +66,21 @@ const SideBar = () => {
           <div className="item">
             <MessageOutlinedIcon />
             <span>Messages</span>
-            
+
           </div>
         </div>
         <hr />
         <div className="menu">
           <span className="suggestion">You Might Like</span>
           <Slider {...settings}>
-             {data.map((d) => (
+            {data.map((d) => (
               <div key={d.name}>
-                <div className="h-56"> 
-                  <img src={d.img} alt=""/>
+                <div className="h-56">
+                  <img src={d.img} alt="" />
                 </div>
               </div>
-             ))}
-          </Slider>       
+            ))}
+          </Slider>
         </div>
       </div>
     </div>

@@ -1,0 +1,13 @@
+@import "../../style.scss";
+
+.FriendContainer {
+    @include themify($themes) {
+
+        background-color: themed("bgSoft");
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        max-height: 100%;
+
+    }
+}
