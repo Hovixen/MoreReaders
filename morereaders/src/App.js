@@ -12,6 +12,7 @@ import Register from "./pages/register/Register";
 import "./style.scss";
 import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
+import Friends from "./components/friends/Friends";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -23,7 +24,7 @@ function App() {
         <Navbar />
         <div style={{ display: "flex" }}>
           <SideBar />
-          <div style={{ flex: 6 }}>
+          <div style={{ flex: 7 }}>
             <Outlet />
           </div>
         </div>
@@ -66,6 +67,10 @@ function App() {
               { path: "/Library",
                 element: <Library />,
               },
+
+              { path: "/friends",
+                element: <Friends />,
+              }
           ],
         },
 
