@@ -33,11 +33,15 @@ const SideBar = () => {
       <div className="container">
         <div className="menu">
           <div className="user">
-            <img
-              src={currentUser.profilePic ? `${PF}${currentUser.profilePic}` : "/assets/images/profile.jpg"}
-              alt=""
-            />
-            <span>{currentUser.username}</span>
+            <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <img
+                src={currentUser.profilePic ? `${PF}${currentUser.profilePic}` : "/assets/images/profile.jpg"}
+                alt=""
+              />
+            </Link>
+            <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <span>{currentUser.username}</span>
+            </Link>
           </div>
           <div className="item">
             <Link to="Friends" style={{ textDecoration: "none", color: "inherit" }}>
