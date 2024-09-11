@@ -18,6 +18,7 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const { identifier } = useParams();
   const { currentUser, updateProfilePic } = useContext(AuthContext);
+  const [following, setFollowing] = useState(false);
   const [loading, setLoading] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   // const [profilePic, setProfilePic] = useState(currentUser.profilePic);
@@ -73,6 +74,38 @@ const Profile = () => {
         }
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFollow = async () => {
+    try {
+      const res = await axios.put(`/profile/${user.id}/follow`, {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${currentUser.access_token}`
+          }
+        });
+      console.log(res.data.message);
+      setFollowing(true);
+    } catch (error) {
+      console.log(`Error following user ${error}`);
+    }
+  };
+
+  const handleUnfollow = async () => {
+    try {
+      const res = await axios.put(`/profile/${user.id}/unfollow`, {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${currentUser.access_token}`
+          }
+        });
+      console.log(res.data.message);
+      setFollowing(false);
+    } catch (error) {
+      console.log(`Error following user ${error}`);
     }
   };
   //   try {
@@ -171,7 +204,10 @@ const Profile = () => {
                 <span>{user.username}</span>
               </div>
             </div>
-            <button>follow</button>
+            {currentUser.id !== user.id && (
+              following ? (<button onClick={handleUnfollow}>unfollow</button>) :
+                (<button onClick={handleFollow}>follow</button>)
+            )}
           </div>
           <div className="right">
             <MoreVertIcon />

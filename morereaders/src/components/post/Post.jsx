@@ -29,12 +29,16 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get(`/profile/${post.user_id}`, {
-        headers: {
-          "Authorization": `Bearer ${currentUser.access_token}`
-        }
-      });
-      setUser(res.data)
+      try {
+        const res = await axios.get(`/profile/${post.user_id}`, {
+          headers: {
+            "Authorization": `Bearer ${currentUser.access_token}`
+          }
+        });
+        setUser(res.data)
+      } catch (error) {
+        console.log(`Error getting Post user ID ${error}`);
+      }
     }
     getUser();
   }, [post.user_id, currentUser]);
