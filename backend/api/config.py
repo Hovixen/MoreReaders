@@ -24,4 +24,11 @@ class Config:
     UPLOAD_BOOKS = os.path.join(REACT_PUBLIC_FOLDER, 'assets', 'books')
 
     os.makedirs(UPLOAD_IMAGE, exist_ok=True)    
-    os.makedirs(UPLOAD_BOOKS, exist_ok=True)     
+    os.makedirs(UPLOAD_BOOKS, exist_ok=True)
+
+    # PROXY_URL = config('PROXY_URL')
+    # PROXY_PORT = config('PROXY_PORT')
+
+    # if PROXY_URL and PROXY_PORT:
+    #     os.environ['http_proxy'] = 'http://{}:{}'.format(PROXY_URL, PROXY_PORT)
+    #     os.environ['https_proxy'] = 'https://{}:{}'.format(PROXY_URL, PROXY_PORT)

@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from bson.objectid import ObjectId
 from backend.api import mongo, bcrypt
-from backend.api.utils import base64Img
+from backend.api.utils import base64Img, convert_ObjID_to_str
 from datetime import datetime
 
 user = Blueprint('user', __name__)
@@ -70,9 +70,8 @@ def get_profileId(user_id):
         'profile_picture', 'followers', 'following', 'bio', 'created_at'
         ]
 
-    res = {field: user.get(field) for field in fields}
-    res['id'] = str(res['_id'])
-    res.pop('_id')
+    res = {field: convert_ObjID_to_str(user.get(field)) for field in fields}
+    res['id'] = res.pop('_id')
     return jsonify(res), 200
 
     
@@ -97,10 +96,13 @@ def get_profile():
         '_id', 'first_name', 'last_name', 'username', 'email',
         'profile_picture', 'followers', 'following', 'bio', 'created_at'
         ]
+    res = {}
+    for field in fields:
+        value = user.get(field)
+        res[field] = convert_ObjID_to_str(value)
 
-    res = {field: user.get(field) for field in fields}
-    res['id'] = str(res['_id'])
-    res.pop('_id')
+    res['id'] = res.pop('_id')
+    print("res {}".format(res))
     return jsonify(res), 200
 
 
