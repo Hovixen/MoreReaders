@@ -1,6 +1,8 @@
 import base64
 import secrets
 import os
+from bson import ObjectId
+
 
 def upload(file, folder):
     """function saves images in path"""
@@ -30,3 +32,15 @@ def base64Img(string_img, folder):
             file.write(img_data)
         return rel_path
     return none
+
+def convert_ObjID_to_str(obj):
+    """ function converts mongodb ObjectId to str
+        so that it can be used by jsonify
+    """
+    if isinstance(obj, ObjectId):
+        return str(obj)
+    elif isinstance(obj, dict):
+        return {key: convert_ObjID_to_str(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_ObjID_to_str(item) for item in obj]
+    return obj

@@ -178,13 +178,15 @@ def timeline():
     """ retrieves all users post and followers """
     current_user_id = get_jwt_identity()
     current_user = mongo.db.users.find_one({'_id': ObjectId(current_user_id)})
-    print (current_user_id)
-    print (current_user)
+    # print (current_user_id)
+    # print (current_user)
+
     # get the ids for the user followings
     id_followings = current_user.get('followings', [])
     all_id = [current_user_id]
-    print (all_id)
-    print (id_followings)
+    # print (all_id)
+    # print (id_followings)
+
     for id_following in id_followings:
         all_id.append(str(id_following))
     posts = list(mongo.db.posts.find({'user_id': {'$in': all_id}}))
