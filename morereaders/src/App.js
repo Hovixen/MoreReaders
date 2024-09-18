@@ -13,6 +13,7 @@ import "./style.scss";
 import { AuthContext } from "./context/authContext";
 import { DarkModeContext } from "./context/darkModeContext";
 import Friends from "./components/friends/Friends";
+import Messenger from "./pages/Messanger/Messenger";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -32,6 +33,15 @@ function App() {
     );
   };
 
+  const MessengerLayout = () => {
+    return (
+      <div className={`theme-${darkMode ? "dark" : "light"}`}>
+        <Navbar />
+        <Outlet />
+      </div>
+    )
+  }
+
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
       return <Navigate to="/login" />;
@@ -39,54 +49,76 @@ function App() {
     return children;
   };
 
-  const router = createBrowserRouter ([
+  const router = createBrowserRouter([
     {
-          path:"/",
-          element: (
-            <ProtectedRoute>
-              <Layout />
-            </ProtectedRoute>
-          ),
-          children: [
-              { path: "/",
-                element: <Home />,
-              },
-              
-              { path: "/profile/:identifier",
-                element:<Profile />,
-              },
-              
-              { path: "/book",
-                element: <BookShelves />,
-              },
-              
-              { path: "/book/:id",
-                element: <BookDetails />,
-              },
-
-              { path: "/Library",
-                element: <Library />,
-              },
-
-              { path: "/friends",
-                element: <Friends />,
-              }
-          ],
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <Layout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <Home />,
         },
 
-        { path: "/login",
-          element: <Login />,
+        {
+          path: "/profile/:identifier",
+          element: <Profile />,
         },
-        { path: "/register",
-          element: <Register />
+
+        {
+          path: "/book",
+          element: <BookShelves />,
         },
-      ]);
-  
-      return (
-        <div>
-          <RouterProvider router={router}/>
-        </div>
-      );
+
+        {
+          path: "/book/:id",
+          element: <BookDetails />,
+        },
+
+        {
+          path: "/Library",
+          element: <Library />,
+        },
+
+        {
+          path: "/friends",
+          element: <Friends />,
+        }
+      ],
+    },
+
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Register />
+    },
+    {
+      path: "/messenger",
+      element: (
+        <ProtectedRoute>
+          <MessengerLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/messenger",
+          element: <Messenger />,
+        }
+      ]
+    }
+  ]);
+
+  return (
+    <div>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
