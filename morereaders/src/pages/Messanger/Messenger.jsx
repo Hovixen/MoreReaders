@@ -3,7 +3,12 @@ import "./messenger.scss";
 const Messenger = () =>{
     return(
         <div className="Messenger">
-            Hello Messenger
+            <div className="Chatmember">
+                members
+            </div>
+            <div className="Chatbox">
+                box
+            </div>
         </div>
     )
 }
