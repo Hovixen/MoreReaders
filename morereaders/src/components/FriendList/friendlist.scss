@@ -53,8 +53,9 @@
                 flex-direction: column;
                 align-items: center;
 
-                .FriendName.fw-3 {
-                    font-size: 20px;
+                .FriendName {
+                    @extend .fw-3;
+                    @extend .fs-15;
                 }
 
                 .Message {

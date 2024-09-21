@@ -107,7 +107,7 @@ For any questions or feedback, please contact any of the team members:
 - Foluke Brown
 - Herientta Onoge
 - Oluwatobi Adedayo Adesanya
-- Nelson Erijo
+- Nelson Erijo (here)[orevaerijo@gmail.com]
 
 ---
 

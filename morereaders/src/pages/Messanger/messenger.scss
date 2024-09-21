@@ -1,16 +1,32 @@
-@import "../style.scss";
+@import "../../style.scss";
 
 .Messenger {
     @include themify($themes) {
         display: flex;
-        background-color: themed("bg-soft");
+        background-color: themed("bgSoft");
+        // height: calc(100vh - 90px);
 
-        .ChatMember {
+        .Chatmember {
             flex: 4;
+
+            .SearchFriends {
+                width: 80%;
+                padding: 10px 0px;
+                border: none;
+                background-color: themed("bgSoft");
+                outline: none;
+                border-bottom: solid 1px;
+
+            }
         }
 
         .Chatbox {
-            display: flex;
+            flex: 6;
+        }
+
+        .Memberwraps,
+        .Boxwraps {
+            padding: 20px;
         }
     }
 }
